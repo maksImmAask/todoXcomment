@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Flex, Stack, Title, ActionIcon } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { HiMiniPencilSquare, HiMiniPlusCircle, HiArchiveBoxXMark } from 'react-icons/hi2'
-import { useNavigate } from 'react-router-dom'  // импортируем для навигации
+import { useNavigate } from 'react-router-dom' 
 import { useCommentsList } from '../../hooks/use-comments-list.jsx'
 import { CommentsCreate } from '../comments-create/comments-create.jsx'
 import { CommentsEdit } from '../comments-edit/comments-edit.jsx'
