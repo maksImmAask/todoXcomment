@@ -1,0 +1,17 @@
+.root {
+  &[data-variant='azizbek'] {
+    background-color: red;
+  }
+
+  &[data-variant='azizbek']:hover {
+    background-color: rgb(244, 99, 99);
+  }
+
+  &[data-disabled='true'] {
+    background-color: gainsboro;
+  }
+
+  &[data-disabled='true']:hover {
+    background-color: gainsboro;
+  }
+}
