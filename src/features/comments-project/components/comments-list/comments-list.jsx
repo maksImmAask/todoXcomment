@@ -10,7 +10,7 @@ import { CommentsDelete } from '../comments-delete/comments-delete.jsx'
 
 export default function CommentsList() {
   const { comments, setComments } = useCommentsList()
-  const navigate = useNavigate()  // хук для переходов
+  const navigate = useNavigate()
 
   const addComment = (newComment) => {
     setComments((prev) => [newComment, ...prev])
@@ -60,7 +60,7 @@ export default function CommentsList() {
       <Flex align="center" gap={12}>
         <Title order={2}>Comments List</Title>
 
-        {/* Кнопка Back */}
+      
         <Button variant="outline" onClick={() => navigate('/')}>
           Back
         </Button>
