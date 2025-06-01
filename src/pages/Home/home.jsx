@@ -1,5 +1,6 @@
 import { Flex, List } from '@mantine/core'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../../constants/routes'
 
 const Home = () => {
   return (
@@ -8,10 +9,13 @@ const Home = () => {
         <Flex gap={12}>
           <List.Item>Привет выбери то что нужно!</List.Item>
           <List.Item>
-            <Link to="/todos">Todos</Link>
+            <Link to={ROUTES.TODOS}>Todos</Link>
           </List.Item>
           <List.Item>
-            <Link to="/comments">Comments</Link>
+            <Link to={ROUTES.COMMENTS}>Comments</Link>
+          </List.Item>
+          <List.Item>
+            <Link to={ROUTES.POSTS}>Posts</Link>
           </List.Item>
         </Flex>
       </List>

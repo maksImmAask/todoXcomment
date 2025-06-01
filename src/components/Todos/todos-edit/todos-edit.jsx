@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { TodosForm } from '../todos-form/todos-form.jsx'
 import { api } from '../../../api/api.js'
 import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
 
 export const TodosEdit = ({ id, updateTodo }) => {
   const [data, setData] = useState(null)
@@ -12,12 +13,7 @@ export const TodosEdit = ({ id, updateTodo }) => {
   }
 
   const fetchEditTodo = async (body) => {
-    const res = await fetch(`https://dummyjson.com/todos/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    const data = await res.json()
+    const { data } = await api.put(`todos/${id}`, body)
     return data
   }
 
@@ -26,11 +22,20 @@ export const TodosEdit = ({ id, updateTodo }) => {
   }, [id])
 
   const editFn = async (values) => {
-    const updated = await fetchEditTodo(values)
-    if (updateTodo) {
-      updateTodo(updated)
+    try {
+      const updated = await fetchEditTodo(values)
+      if (updateTodo) {
+        updateTodo(updated)
+      }
+      modals.closeAll()
+    } catch (error) {
+      notifications.show({
+        color: 'red',
+        title: 'Error',
+        message: 'An error occurred while editing the todo.',
+      })
+      modals.closeAll()
     }
-    modals.closeAll()
   }
 
   return (

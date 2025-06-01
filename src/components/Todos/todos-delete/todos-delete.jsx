@@ -1,18 +1,24 @@
+import { api } from '../../../api/api.js'
 import { Button, Flex, Stack, Title } from '@mantine/core'
 import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
 
 export const TodosDelete = ({ id, removeTodo }) => {
-  const deleteTodo = () => {
-    fetch(`https://dummyjson.com/todos/${id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then(() => {
-        if (removeTodo) {
-          removeTodo(id)
-        }
-        modals.closeAll()
+  const deleteTodo = async () => {
+    try {
+      await api.delete(`todos/${id}`)
+      if (removeTodo) {
+        removeTodo(id)
+      }
+      modals.closeAll()
+    } catch (error) {
+      notifications.show({
+        color: 'red',
+        title: 'Error',
+        message: 'An error occurred while deleting the todo.',
       })
+      modals.closeAll()
+    }
   }
 
   return (

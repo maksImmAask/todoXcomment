@@ -8,8 +8,10 @@ export const useCommentsList = () => {
     try {
       const { data } = await api.get('comments')
       setComments(data.comments || data)
-    } catch (error) {
-      console.error('Failed to fetch comments', error)
+    } catch {
+      <Notification title="Error" color="red">
+        Failed to fetch comments. Please try again later.
+      </Notification>
     }
   }
 

@@ -1,16 +1,17 @@
-import { useForm } from '@mantine/form'
-import { Button, Stack, Textarea, NumberInput, Flex, Select } from '@mantine/core'
-import { modals } from '@mantine/modals'
 import { useEffect, useState } from 'react'
+import { useForm } from '@mantine/form'
+import { Button, Stack, TextInput, Textarea, Flex, Select } from '@mantine/core'
+import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
 import { api } from '../../../api/api.js'
 
 const INITIAL_VALUES = {
+  title: '',
   body: '',
-  postId: null,
   userId: null,
 }
 
-export const CommentsForm = ({ title, submitFn, defaultValues = {} }) => {
+export const PostsForm = ({ title, submitFn, defaultValues = {} }) => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -21,37 +22,43 @@ export const CommentsForm = ({ title, submitFn, defaultValues = {} }) => {
     initialValues: {
       ...INITIAL_VALUES,
       ...defaultValues,
-      userId: defaultValues.user?.id ?? defaultValues.userId ?? null,
-      postId: defaultValues.postId ?? null,
+      userId: defaultValues.userId ?? null,
     },
     validate: {
-      body: (value) => (value.trim().length === 0 ? 'Enter comment text' : null),
-      postId: (value) => (!value ? 'Enter valid postId' : null),
+      title: (value) => (value.trim().length === 0 ? 'Enter post title' : null),
+      body: (value) => (value.trim().length === 0 ? 'Enter post body' : null),
       userId: (value) => (!value ? 'Select user' : null),
     },
   })
 
   const handleSubmit = async (values) => {
-    await submitFn(values)
-    modals.closeAll()
+    try {
+      await submitFn(values)
+      modals.closeAll()
+    } catch (error) {
+      notifications.show({
+        color: 'red',
+        title: 'Error',
+        message: 'An error occurred while saving the post.',
+      })
+      modals.closeAll()
+    }
   }
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack gap={20}>
+        <TextInput
+          label="Title"
+          placeholder="Enter post title"
+          {...form.getInputProps('title')}
+        />
         <Textarea
-          label="Comment"
-          placeholder="Enter comment text"
+          label="Body"
+          placeholder="Enter post body"
           {...form.getInputProps('body')}
           autosize
           minRows={3}
-        />
-        <NumberInput
-          label="Post ID"
-          placeholder="Enter post ID"
-          {...form.getInputProps('postId')}
-          min={1}
-          hideControls
         />
         <Select
           label="User"
