@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Button, Flex, Stack, Title, ActionIcon, Card, Text, Grid } from '@mantine/core'
+import { Button, Flex, Stack, Title, ActionIcon, Card, Text, Grid, Loader, Center } from '@mantine/core'
 import { HiArchiveBoxXMark, HiMiniPencilSquare, HiMiniPlusCircle } from 'react-icons/hi2'
 import { modals } from '@mantine/modals'
 import { usePostsList } from '../../../hooks/posts/use-posts-list/use-posts-list.jsx'
@@ -12,10 +12,14 @@ import { api } from '../../../api/api.js'
 export const PostsList = () => {
   const { posts, setPosts } = usePostsList()
   const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
-    api('users').then(({ data }) => setUsers(data.users))
+    setLoading(true)
+    api('users')
+      .then(({ data }) => setUsers(data.users))
+      .finally(() => setLoading(false))
   }, [])
 
   const getUserName = (userId) => {
@@ -50,8 +54,15 @@ export const PostsList = () => {
 
   const goBack = () => navigate('/')
 
-  // Установим фиксированную высоту для всех карточек
   const CARD_HEIGHT = 260
+
+  if (loading) {
+    return (
+      <Center h="60vh">
+        <Loader size="lg" />
+      </Center>
+    )
+  }
 
   return (
     <Stack gap={12} p={20}>

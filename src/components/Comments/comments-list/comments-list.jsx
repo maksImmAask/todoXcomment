@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Button,
@@ -6,6 +7,8 @@ import {
   Title,
   Table as TableM,
   ActionIcon,
+  Loader,
+  Center,
 } from '@mantine/core'
 import { Table } from '../../../ui/table/table.jsx'
 import {
@@ -21,7 +24,13 @@ import { useCommentsList } from '../../../hooks/comments/use-comments-list/use-c
 
 export const CommentsList = () => {
   const { comments, setComments } = useCommentsList()
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 300)
+  }, [])
 
   const addComment = (newComment) => setComments((prev) => [newComment, ...prev])
   const updateComment = (updated) => setComments((prev) => prev.map((c) => (c.id === updated.id ? updated : c)))
@@ -68,6 +77,14 @@ export const CommentsList = () => {
       </TableM.Td>
     </TableM.Tr>
   ))
+
+  if (loading) {
+    return (
+      <Center h="60vh">
+        <Loader size="lg" />
+      </Center>
+    )
+  }
 
   return (
     <Stack gap={12} p={20}>

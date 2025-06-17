@@ -7,6 +7,8 @@ import {
   Table as TableM,
   Checkbox,
   ActionIcon,
+  Loader,
+  Center,
 } from '@mantine/core'
 import { Table } from '../../../ui/table/table.jsx'
 import {
@@ -19,10 +21,17 @@ import { TodosEdit } from '../todos-edit/todos-edit.jsx'
 import { TodosCreate } from '../todos-create/todos-create.jsx'
 import { TodosDelete } from '../todos-delete/todos-delete.jsx'
 import { useTodosList } from '../../../hooks/todos/use-todos-list/use-todos-list.jsx'
+import { useEffect, useState } from 'react'
 
 export const TodosList = () => {
   const { todos, removeTodo, updateTodo, addTodo } = useTodosList()
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 300)
+  }, [])
 
   const createFn = () => {
     modals.open({
@@ -68,12 +77,24 @@ export const TodosList = () => {
     </TableM.Tr>
   ))
 
+  if (loading) {
+    return (
+      <Center h="60vh">
+        <Loader size="lg" />
+      </Center>
+    )
+  }
+
   return (
     <Stack gap={12} p={20}>
       <Flex gap={12} align={'center'}>
         <Button onClick={goBack}>Back</Button>
         <Title>Todos list</Title>
-        <Button ml="auto" rightSection={<HiMiniPlusCircle />} onClick={createFn}>
+        <Button
+          ml="auto"
+          rightSection={<HiMiniPlusCircle />}
+          onClick={createFn}
+        >
           Create todo
         </Button>
       </Flex>
