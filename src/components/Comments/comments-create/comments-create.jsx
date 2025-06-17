@@ -17,7 +17,7 @@ export const CommentsCreate = ({ addComment }) => {
         postId: Number(body.postId),
       }
       const newComment = await fetchCreateComment(preparedBody)
-      if (addComment) {
+      if (addComment) { 
         addComment(newComment)
       }
       modals.closeAll()

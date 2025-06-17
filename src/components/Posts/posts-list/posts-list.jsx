@@ -50,6 +50,9 @@ export const PostsList = () => {
 
   const goBack = () => navigate('/')
 
+  // Установим фиксированную высоту для всех карточек
+  const CARD_HEIGHT = 260
+
   return (
     <Stack gap={12} p={20}>
       <Flex gap={12} align="center">
@@ -62,19 +65,44 @@ export const PostsList = () => {
       <Grid gutter="md">
         {posts.slice(0, 30).map((post) => (
           <Grid.Col span={4} key={post.id}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
-              <Flex justify="space-between" align="center" mb={8}>
-                <Title order={4} style={{ wordBreak: 'break-word' }}>{post.title}</Title>
-                <Flex gap={4}>
-                  <ActionIcon onClick={() => editFn(post.id)} color="blue">
-                    <HiMiniPencilSquare size={22} />
-                  </ActionIcon>
-                  <ActionIcon onClick={() => deleteFn(post.id)} color="blue">
-                    <HiArchiveBoxXMark size={22} />
-                  </ActionIcon>
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              style={{
+                height: CARD_HEIGHT,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <Flex justify="space-between" align="center" mb={8}>
+                  <Title order={4} style={{ wordBreak: 'break-word' }}>{post.title}</Title>
+                  <Flex gap={4}>
+                    <ActionIcon onClick={() => editFn(post.id)} color="blue">
+                      <HiMiniPencilSquare size={22} />
+                    </ActionIcon>
+                    <ActionIcon onClick={() => deleteFn(post.id)} color="blue">
+                      <HiArchiveBoxXMark size={22} />
+                    </ActionIcon>
+                  </Flex>
                 </Flex>
-              </Flex>
-              <Text mb={8} style={{ wordBreak: 'break-word' }}>{post.body}</Text>
+                <Text
+                  mb={8}
+                  style={{
+                    wordBreak: 'break-word',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 4,
+                    WebkitBoxOrient: 'vertical',
+                  }}
+                >
+                  {post.body}
+                </Text>
+              </div>
               <Text size="xs" color="dimmed">User: {getUserName(post.userId)}</Text>
             </Card>
           </Grid.Col>
