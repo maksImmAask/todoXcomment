@@ -3,4 +3,5 @@ export const ROUTES = {
   TODOS: '/todos',
   COMMENTS: '/comments',
   POSTS: '/posts',
+  TS: '/ts'
 }

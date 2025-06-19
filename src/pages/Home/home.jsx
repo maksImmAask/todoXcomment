@@ -17,6 +17,9 @@ const Home = () => {
           <List.Item>
             <Link to={ROUTES.POSTS}>Posts</Link>
           </List.Item>
+          <List.Item>
+            <Link to={ROUTES.TS}>Ts Learn page</Link>
+          </List.Item>
         </Flex>
       </List>
     </Flex>

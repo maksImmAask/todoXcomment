@@ -3,6 +3,7 @@ import Home from '../pages/home/home.jsx'
 import TodosListPage from '../pages/Todos/todos-list.jsx'
 import CommentsListPage from '../pages/comments/comments.jsx' 
 import PostsListPage from '../pages/posts/posts.jsx'
+import TsLearningPage from '../pages/tspage/ts.js'
 
 import { ROUTES } from '../constants/routes.js'
 
@@ -23,4 +24,8 @@ export const router = createBrowserRouter([
     path: ROUTES.POSTS,
     element: <PostsListPage />,
   },
+  {
+    path: ROUTES.TS,
+    element: <TsLearningPage />,
+  }
 ])
