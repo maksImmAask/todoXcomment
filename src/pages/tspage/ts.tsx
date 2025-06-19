@@ -18,7 +18,7 @@ const TsLearningPage = () => {
   return (
     <div className="body">
       <div className="top">
-        <h1>Products</h1>
+        <h1>продукты</h1>
         <button>Создать</button>
       </div>
 

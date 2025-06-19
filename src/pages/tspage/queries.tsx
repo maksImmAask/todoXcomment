@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-query'
 import { deleteProduct, getProducts } from './services.ts'
 
-export const useGetInfinityProducts = (limit = 10) => {
+export const useGetInfinityProducts = (limit = 0) => {
   return useInfiniteQuery({
     queryKey: ['products'],
     queryFn: ({ pageParam = 0 }) => getProducts({ skip: pageParam, limit }),

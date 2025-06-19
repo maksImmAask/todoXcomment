@@ -3,7 +3,7 @@ import type { Products } from './types.ts'
 
 export async function getProducts({
   skip = 0,
-  limit = 10,
+  limit = 0,
 }: {
   skip: number
   limit: number
