@@ -4,7 +4,7 @@ import { useGetInfinityProducts } from './queries'
 
 const TsLearningPage = () => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useGetInfinityProducts(10)
+    useGetInfinityProducts(1)
   const { ref, inView } = useInView({
     threshold: 0.5,
   })
@@ -49,7 +49,7 @@ const TsLearningPage = () => {
       </table>
       <div
         ref={ref}
-        style={{ width: '100%', height: '20px', background: 'blue' }}
+        style={{ width: '100%', height: '50px', background: 'blue' }}
       />
     </div>
   )
